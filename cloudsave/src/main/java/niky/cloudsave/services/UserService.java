@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-
+    // Token och hashmappen hör ihopa. Byts sedan ut av JWT
     private final Map<String, String> tokens = new HashMap<>();
     private final UserRepository userRepository;
 
