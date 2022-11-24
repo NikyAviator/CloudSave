@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.UUID;
 
 @Entity(name="file_user")
 @Getter
@@ -15,8 +16,16 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class User {
     @Id
-    private String userId;
+    private UUID userId;
 
     private String name;
     private String password;
+    private boolean admin;
+
+    public User( String name, String password, boolean admin) {
+        this.userId = UUID.randomUUID();
+        this.name = name;
+        this.password = password;
+        this.admin = admin;
+    }
 }

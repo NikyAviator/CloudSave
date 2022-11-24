@@ -2,6 +2,7 @@ package niky.cloudsave.controllers;
 
 import lombok.Getter;
 import lombok.Setter;
+import niky.cloudsave.exceptions.UserAlreadyExistsException;
 import niky.cloudsave.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,30 +23,31 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<String> register(
             @RequestBody RegisterUser registerUser
-    ) {
-        var user = userService.registerUser(registerUser.getUsername(), registerUser.getPassword());
+    ) throws UserAlreadyExistsException {
+        var user = userService.registerUser(registerUser.getUsername(), registerUser.getPassword(),registerUser.isAdmin());
         return ResponseEntity.ok(user.getName());
     }
 
-    @PostMapping("/login")
+   /* @PostMapping("/login")
     public ResponseEntity<String> login(
             @RequestBody LoginUser loginUser
     ) {
         var token = userService.login(loginUser.getUsername(), loginUser.getPassword());
         return ResponseEntity.ok(token);
-    }
+    }*/
 
     @Getter
     @Setter
     public static class RegisterUser {
         private String username;
         private String password;
+        private boolean admin;
     }
 
-    @Getter
+  /*  @Getter
     @Setter
     public static class LoginUser {
         private String username;
         private String password;
-    }
+    }*/
 }

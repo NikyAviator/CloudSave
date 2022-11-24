@@ -1,54 +1,52 @@
 package niky.cloudsave.services;
 
+import lombok.extern.slf4j.Slf4j;
 import niky.cloudsave.data.User;
+import niky.cloudsave.exceptions.UserAlreadyExistsException;
 import niky.cloudsave.repositories.UserRepository;
+import niky.cloudsave.security.UserObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-
 @Service
-public class UserService {
-    // Token och hashmappen hör ihopa. Byts sedan ut av JWT
-    private final Map<String, String> tokens = new HashMap<>();
+@Slf4j
+public class UserService implements UserDetailsService {
+
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
-    public User registerUser(String username, String password) {
-        var user = new User(UUID.randomUUID().toString(), username, password);
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        var user = userRepository
+                .findByName(username)
+                .orElseThrow(() -> new UsernameNotFoundException("A user with username '" + username + "' could not be found."));
+
+        return new UserObject(user);
+    }
+
+    public User registerUser(String username, String password, boolean admin)
+            throws UserAlreadyExistsException
+    {
+        var existing = userRepository.findByName(username);
+        if (existing.isPresent()) {
+            log.info("Failed to register user since name '" + username + "' already exists.");
+            throw new UserAlreadyExistsException();
+        }
+
+        var user = new User(username, passwordEncoder.encode(password), admin);
+        log.info("Successfully registered user with id '" + user.getUserId() + "'.");
         return userRepository.save(user);
-    }
-    public String login(String username, String password) {
-        var userOpt = getByUsername(username);
-        if (userOpt.isEmpty()) {
-            return null;
-        }
 
-        var user = userOpt.get();
-
-        if (!user.getPassword().equals(password)) {
-            return null;
-        }
-
-        var token = UUID.randomUUID().toString();
-        tokens.put(token, username);
-        return token;
     }
-    public User verifyToken(String token) {
-        var username = tokens.get(token);
-        if (username == null) return null;
 
-        var user = getByUsername(username);
-        return user.orElse(null);
-    }
-    public Optional<User> getByUsername(String username) {
-        return userRepository.findByName(username);
-    }
 }
