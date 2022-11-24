@@ -22,22 +22,18 @@ public class SecurityConfig {
             AuthenticationManager authManager
     ) throws Exception {
         return http
-                .cors()
-                .and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JWTLoginFilter(authManager))
                 .addFilterAfter(new JWTVerifyFilter(userService), JWTLoginFilter.class)
                 .authorizeRequests()
-                .antMatchers("/user/register")
+                .antMatchers("/register")
                 .permitAll()
-                .antMatchers(HttpMethod.PUT, "/product/")
-                .hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/product/")
-                .hasRole("ADMIN")
+                .antMatchers("/login")
+                .permitAll()
                 .anyRequest()
-                .authenticated()
+                .permitAll()
                 .and()
                 .build();
     }
