@@ -4,11 +4,13 @@ import niky.cloudsave.data.FileDB;
 import niky.cloudsave.data.User;
 import niky.cloudsave.message.ResponseFile;
 import niky.cloudsave.message.ResponseMessage;
+import niky.cloudsave.security.UserObject;
 import niky.cloudsave.services.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,10 +25,10 @@ public class FileController {
     private FileService fileService;
 
     @PostMapping("/upload")
-    public ResponseEntity<ResponseMessage> uploadFile(@RequestBody MultipartFile file) {
+    public ResponseEntity<ResponseMessage> uploadFile(@RequestBody MultipartFile file, @AuthenticationPrincipal UserObject user) {
         String message = "";
         try {
-            fileService.store(file);
+            fileService.store(file, user);
 
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
