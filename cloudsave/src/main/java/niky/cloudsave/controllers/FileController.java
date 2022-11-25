@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class FileController {
     @Autowired
     private FileService fileService;
-
+    // Upload a file to the database.
     @PostMapping("/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestBody MultipartFile file, @AuthenticationPrincipal UserObject user) {
         String message = "";
@@ -37,7 +37,7 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
-
+    // Download all files
     @GetMapping("/files")
     public ResponseEntity<List<ResponseFile>> getListFiles() {
         List<ResponseFile> files = fileService.getAllFiles().map(dbFile -> {
@@ -56,7 +56,25 @@ public class FileController {
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
+    @GetMapping("/myfiles")
+    public ResponseEntity<List<ResponseFile>> getMyFiles(@AuthenticationPrincipal UserObject user) {
+        List<ResponseFile> files = fileService.getMyFiles(user).map(dbFile -> {
+            String fileDownloadUri = ServletUriComponentsBuilder
+                    .fromCurrentContextPath()
+                    .path("/myfiles/")
+                    .path(dbFile.getId())
+                    .toUriString();
 
+            return new ResponseFile(
+                    dbFile.getName(),
+                    fileDownloadUri,
+                    dbFile.getType(),
+                    dbFile.getData().length);
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+    // Download a file
     @GetMapping("/files/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         FileDB fileDB = fileService.getFile(id);
