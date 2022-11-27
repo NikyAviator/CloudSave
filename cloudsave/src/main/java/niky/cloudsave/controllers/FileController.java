@@ -1,10 +1,12 @@
 package niky.cloudsave.controllers;
 
+import niky.cloudsave.data.FileDB;
 import niky.cloudsave.message.ResponseFile;
 import niky.cloudsave.message.ResponseMessage;
 import niky.cloudsave.security.UserObject;
 import niky.cloudsave.services.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -59,7 +61,7 @@ public class FileController {
         List<ResponseFile> files = fileService.getMyFiles(user).map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
-                    .path("/myfiles/")
+                    .path("/files/")
                     .path(dbFile.getId())
                     .toUriString();
 
@@ -73,14 +75,14 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
     // Download a file, La bara till Authentication Principle
-    /*@GetMapping("/files/{id}")
-    public ResponseEntity<byte[]> getFile(@AuthenticationPrincipal UserObject user, @PathVariable String id) {
+    @GetMapping("/files/{id}")
+    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         FileDB fileDB = fileService.getFile(id);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
                 .body(fileDB.getData());
-    }*/
+    }
 
     @DeleteMapping("/file/{id}")
     public ResponseEntity<ResponseMessage> deleteFile(@AuthenticationPrincipal UserObject user,@PathVariable String id) {
