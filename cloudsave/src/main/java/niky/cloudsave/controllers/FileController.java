@@ -1,13 +1,10 @@
 package niky.cloudsave.controllers;
 
-import niky.cloudsave.data.FileDB;
-import niky.cloudsave.data.User;
 import niky.cloudsave.message.ResponseFile;
 import niky.cloudsave.message.ResponseMessage;
 import niky.cloudsave.security.UserObject;
 import niky.cloudsave.services.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller

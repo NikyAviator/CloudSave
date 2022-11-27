@@ -7,8 +7,6 @@
     <list default="true" id="9c181ab3-03cd-487b-be0b-837f525b22fa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/controllers/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/controllers/FileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/repositories/FileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/repositories/FileRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/services/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/services/FileService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
