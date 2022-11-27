@@ -38,7 +38,7 @@ public class FileController {
         }
     }
     // Download all files
-    @GetMapping("/files")
+   /* @GetMapping("/files")
     public ResponseEntity<List<ResponseFile>> getListFiles() {
         List<ResponseFile> files = fileService.getAllFiles().map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
@@ -55,7 +55,8 @@ public class FileController {
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
-    }
+    }*/
+    // Download all files connected to a user
     @GetMapping("/myfiles")
     public ResponseEntity<List<ResponseFile>> getMyFiles(@AuthenticationPrincipal UserObject user) {
         List<ResponseFile> files = fileService.getMyFiles(user).map(dbFile -> {
@@ -74,13 +75,24 @@ public class FileController {
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
-    // Download a file
-    @GetMapping("/files/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+    // Download a file, La bara till Authentication Principle
+    /*@GetMapping("/files/{id}")
+    public ResponseEntity<byte[]> getFile(@AuthenticationPrincipal UserObject user, @PathVariable String id) {
         FileDB fileDB = fileService.getFile(id);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
                 .body(fileDB.getData());
+    }*/
+
+    @DeleteMapping("/file/{id}")
+    public ResponseEntity<ResponseMessage> deleteFile(@AuthenticationPrincipal UserObject user,@PathVariable String id){
+        var file = fileService.getFile(id);
+        if(file.getUser() == user.getUser()){
+            fileService.deleteFile(id);
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("File deleted successfully"));
+        }
+
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("YOU DON'T OWN THIS FILE! Zatta in da chatta!"));
     }
 }
