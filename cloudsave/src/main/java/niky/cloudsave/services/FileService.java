@@ -33,4 +33,7 @@ public class FileService {
         return fileRepository.findFileByUser(user.getUser()).stream();
     }
 
+    public void deleteFile( String id) {
+        fileRepository.deleteById(id);
+    }
 }

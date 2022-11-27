@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
@@ -86,13 +87,13 @@ public class FileController {
     }*/
 
     @DeleteMapping("/file/{id}")
-    public ResponseEntity<ResponseMessage> deleteFile(@AuthenticationPrincipal UserObject user,@PathVariable String id){
-        var file = fileService.getFile(id);
-        if(file.getUser() == user.getUser()){
+    public ResponseEntity<ResponseMessage> deleteFile(@AuthenticationPrincipal UserObject user,@PathVariable String id) {
+        var fileUser = fileService.getFile(id).getUser().getUserId();
+        var realUser = user.getUser().getUserId();
+        if(fileUser.toString().equals(realUser.toString())){
             fileService.deleteFile(id);
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("File deleted successfully"));
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("File deleted successfully!"));
         }
-
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("YOU DON'T OWN THIS FILE! Zatta in da chatta!"));
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("You CANNOT DO THIS PPC!"));
     }
 }
