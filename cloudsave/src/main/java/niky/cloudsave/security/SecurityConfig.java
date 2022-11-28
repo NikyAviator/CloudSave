@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .antMatchers("/login")
                 .permitAll()
                 .anyRequest()
-                .permitAll()
+                .authenticated()
                 .and()
                 .build();
     }

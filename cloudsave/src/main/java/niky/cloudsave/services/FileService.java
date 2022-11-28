@@ -29,10 +29,6 @@ public class FileService {
         return fileRepository.findAllByUser(user.getUser()).stream();
     }
 
-    public Stream<FileDB> getMyFiles(UserObject user)  {
-        return fileRepository.findFileByUser(user.getUser()).stream();
-    }
-
     public void deleteFile( String id) {
         fileRepository.deleteById(id);
     }

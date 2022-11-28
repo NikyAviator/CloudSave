@@ -24,7 +24,7 @@ public class UserController {
     public ResponseEntity<String> register(
             @RequestBody RegisterUser registerUser
     ) throws UserAlreadyExistsException {
-        var user = userService.registerUser(registerUser.getUsername(), registerUser.getPassword(),registerUser.isAdmin());
+        var user = userService.registerUser(registerUser.getUsername(), registerUser.getPassword());
         return ResponseEntity.ok(user.getName() + ", user created successfully!");
     }
 
@@ -33,7 +33,6 @@ public class UserController {
     public static class RegisterUser {
         private String username;
         private String password;
-        private boolean admin;
     }
 
 }

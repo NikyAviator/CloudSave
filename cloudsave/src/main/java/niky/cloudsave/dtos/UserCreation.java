@@ -8,6 +8,6 @@ import lombok.Setter;
 public class UserCreation {
 
     private String username, password;
-    private boolean admin;
+
 
 }

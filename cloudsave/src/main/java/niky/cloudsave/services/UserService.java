@@ -34,7 +34,7 @@ public class UserService implements UserDetailsService {
         return new UserObject(user);
     }
 
-    public User registerUser(String username, String password, boolean admin)
+    public User registerUser(String username, String password)
             throws UserAlreadyExistsException
     {
         var existing = userRepository.findByName(username);
@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
             throw new UserAlreadyExistsException();
         }
 
-        var user = new User(username, passwordEncoder.encode(password), admin);
+        var user = new User(username, passwordEncoder.encode(password));
         log.info("Successfully registered user with id '" + user.getUserId() + "'.");
         return userRepository.save(user);
 
