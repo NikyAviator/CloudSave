@@ -36,25 +36,6 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
-    // Download all files
-   /* @GetMapping("/files")
-    public ResponseEntity<List<ResponseFile>> getListFiles() {
-        List<ResponseFile> files = fileService.getAllFiles().map(dbFile -> {
-            String fileDownloadUri = ServletUriComponentsBuilder
-                    .fromCurrentContextPath()
-                    .path("/files/")
-                    .path(dbFile.getId())
-                    .toUriString();
-
-            return new ResponseFile(
-                    dbFile.getName(),
-                    fileDownloadUri,
-                    dbFile.getType(),
-                    dbFile.getData().length);
-        }).collect(Collectors.toList());
-
-        return ResponseEntity.status(HttpStatus.OK).body(files);
-    }*/
     // Download all files connected to a user
     @GetMapping("/myfiles")
     public ResponseEntity<List<ResponseFile>> getMyFiles(@AuthenticationPrincipal UserObject user) {
@@ -74,7 +55,7 @@ public class FileController {
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
-    // Download a file, La bara till Authentication Principle
+    // Download a file.
     @GetMapping("/files/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         FileDB fileDB = fileService.getFile(id);
@@ -92,6 +73,6 @@ public class FileController {
             fileService.deleteFile(id);
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("File deleted successfully!"));
         }
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("You CANNOT DO THIS PPC!"));
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("You CANNOT DO THIS PPN!"));
     }
 }
