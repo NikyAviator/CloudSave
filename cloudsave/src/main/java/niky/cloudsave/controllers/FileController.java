@@ -55,7 +55,7 @@ public class FileController {
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
-    // Download a file.
+    // Download a file (you get a link for all the files connected to that user)
     @GetMapping("/files/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         FileDB fileDB = fileService.getFile(id);

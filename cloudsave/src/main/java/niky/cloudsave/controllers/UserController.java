@@ -25,7 +25,7 @@ public class UserController {
             @RequestBody RegisterUser registerUser
     ) throws UserAlreadyExistsException {
         var user = userService.registerUser(registerUser.getUsername(), registerUser.getPassword(),registerUser.isAdmin());
-        return ResponseEntity.ok(user.getName());
+        return ResponseEntity.ok(user.getName() + " ,user created successfully!");
     }
 
    /* @PostMapping("/login")
