@@ -32,7 +32,6 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 
         return authenticationManager.authenticate(authentication);
     }
-
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
@@ -53,5 +52,4 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
             exception.printStackTrace();
         }
     }
-
 }

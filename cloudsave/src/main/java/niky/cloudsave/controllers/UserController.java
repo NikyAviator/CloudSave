@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
     private final UserService userService;
-
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @PostMapping("/register")
     public ResponseEntity<String> register(
             @RequestBody RegisterUser registerUser
@@ -27,7 +25,6 @@ public class UserController {
         var user = userService.registerUser(registerUser.getUsername(), registerUser.getPassword());
         return ResponseEntity.ok(user.getName() + ", user created successfully!");
     }
-
     @Getter
     @Setter
     public static class RegisterUser {

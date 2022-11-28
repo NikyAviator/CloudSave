@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-
 @Service
 public class FileService {
     @Autowired
@@ -17,7 +15,6 @@ public class FileService {
     public FileDB store(MultipartFile file, UserObject user) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         FileDB fileDB = new FileDB(fileName, file.getContentType(), file.getBytes(), user.getUser());
-
         return fileRepository.save(fileDB);
     }
 

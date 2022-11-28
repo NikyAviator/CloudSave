@@ -1,5 +1,4 @@
 package niky.cloudsave.services;
-
 import lombok.extern.slf4j.Slf4j;
 import niky.cloudsave.data.User;
 import niky.cloudsave.exceptions.UserAlreadyExistsException;
@@ -24,7 +23,6 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = userRepository
@@ -33,7 +31,6 @@ public class UserService implements UserDetailsService {
 
         return new UserObject(user);
     }
-
     public User registerUser(String username, String password)
             throws UserAlreadyExistsException
     {
@@ -42,11 +39,9 @@ public class UserService implements UserDetailsService {
             log.info("Failed to register user since name '" + username + "' already exists.");
             throw new UserAlreadyExistsException();
         }
-
         var user = new User(username, passwordEncoder.encode(password));
         log.info("Successfully registered user with id '" + user.getUserId() + "'.");
         return userRepository.save(user);
-
     }
 
 }
