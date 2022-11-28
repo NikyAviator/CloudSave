@@ -39,7 +39,7 @@ public class FileController {
     // Download all files connected to a user
     @GetMapping("/myfiles")
     public ResponseEntity<List<ResponseFile>> getMyFiles(@AuthenticationPrincipal UserObject user) {
-        List<ResponseFile> files = fileService.getMyFiles(user).map(dbFile -> {
+        List<ResponseFile> files = fileService.getAllFiles(user).map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
                     .path("/files/")
@@ -73,6 +73,6 @@ public class FileController {
             fileService.deleteFile(id);
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("File deleted successfully!"));
         }
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("You CANNOT DO THIS PPN!"));
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("You CAN NOT DO THIS!"));
     }
 }

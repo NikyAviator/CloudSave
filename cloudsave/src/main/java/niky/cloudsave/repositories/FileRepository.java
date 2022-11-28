@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -13,4 +14,5 @@ public interface FileRepository extends JpaRepository<FileDB, String> {
 
     Optional<FileDB> findFileByUser(User user);
 
+    List<FileDB> findAllByUser(User user);
 }

@@ -27,24 +27,13 @@ public class SecurityConfig {
                 .addFilter(new JWTLoginFilter(authManager))
                 .addFilterAfter(new JWTVerifyFilter(userService), JWTLoginFilter.class)
                 .authorizeRequests()
-               /* .antMatchers("/register")
+                .antMatchers("/register")
                 .permitAll()
                 .antMatchers("/login")
                 .permitAll()
-                .antMatchers("/upload")
-                .authenticated()
-                .antMatchers("/myfiles")
-                .authenticated()
-                .antMatchers("/file/*")
-                .authenticated()
-                .anyRequest()
-                .permitAll()*/
                 .anyRequest()
                 .permitAll()
                 .and()
                 .build();
     }
-
-
-
 }

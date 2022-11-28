@@ -25,8 +25,8 @@ public class FileService {
         return fileRepository.findById(id).get();
     }
 
-    public Stream<FileDB> getAllFiles() {
-        return fileRepository.findAll().stream();
+    public Stream<FileDB> getAllFiles(UserObject user) {
+        return fileRepository.findAllByUser(user.getUser()).stream();
     }
 
     public Stream<FileDB> getMyFiles(UserObject user)  {
