@@ -13,6 +13,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "files")
 public class FileDB {
+    /**
+     * @Id is primary key. (String id), ids are stored as a UUID values.
+     * @ManyToOne one user can have many files.
+     * @Lob - saves the files in this field as a Lob. Lob can save binary data.
+     */
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")

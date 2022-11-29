@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.UUID;
 
+/**
+ *  User entity, the one we create and then saved to the DB!
+ */
+
 @Entity(name="file_user")
 @Getter
 @Setter

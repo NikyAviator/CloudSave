@@ -18,9 +18,17 @@ import java.util.stream.Collectors;
 
 @Controller
 public class FileController {
+
     @Autowired
     private FileService fileService;
-    // Upload a file to the database.
+
+    /**
+     * @param file - An object of the type MultipartFile. File is saved to db.
+     * @param user - An object of the UserObject, token is taken from the Bearer token. User is saved to db.
+     * @return returning a message depenpding on if we succeeded with the upload or not.
+     *
+     * */
+
     @PostMapping("/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestBody MultipartFile file, @AuthenticationPrincipal UserObject user) {
         String message = "";
@@ -34,7 +42,13 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
-    // Download all files connected to a user
+
+    /**
+     *
+     * @param user - An object of the UserObject, token is taken from the Bearer token.
+     * @return - returns a list of all files that are connected to the logged-in user.
+     */
+
     @GetMapping("/myfiles")
     public ResponseEntity<List<ResponseFile>> getMyFiles(@AuthenticationPrincipal UserObject user) {
         List<ResponseFile> files = fileService.getAllFiles(user).map(dbFile -> {
@@ -53,15 +67,37 @@ public class FileController {
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
-    // Download a file (you get a link for all the files connected to that user)
-    @GetMapping("/files/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
-        FileDB fileDB = fileService.getFile(id);
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
-                .body(fileDB.getData());
+    /**
+     *
+     * @param id - takes in the id of the file that needs to be shown.
+     * @param user - An object of the UserObject, token is taken from the Bearer token.
+     * @return - returns an array of byte[] (binary form)
+     */
+
+    @GetMapping("/files/{id}")
+    public ResponseEntity<byte[]> getFile(@PathVariable String id, @AuthenticationPrincipal UserObject user) {
+        FileDB fileDB = fileService.getFile(id);
+        var fileUser = fileService.getFile(id).getUser().getUserId();
+        var realUser = user.getUser().getUserId();
+        if(fileUser.toString().equals(realUser.toString())){
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
+                    .body(fileDB.getData());
+        }else{
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
     }
+
+    /**
+     *
+     * @param user - takes in the user object that owns the file as a pathvariable.
+     * @param id - An object of the UserObject, token is taken from the Bearer token.
+     *           We check if the file belongs to the logged-in user
+     * @return - Returns response message and deletes the file if the user is logged in
+     *          else, it returns a message that we cannot do this!
+     */
 
     @DeleteMapping("/file/{id}")
     public ResponseEntity<ResponseMessage> deleteFile(@AuthenticationPrincipal UserObject user,@PathVariable String id) {

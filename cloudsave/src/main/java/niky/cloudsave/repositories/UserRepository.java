@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
+
+/**
+ * A custom query to find the user into the db.
+ */
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<User, String> {

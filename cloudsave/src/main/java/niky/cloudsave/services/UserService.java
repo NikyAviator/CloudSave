@@ -23,6 +23,13 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
+    /**
+     *
+     * @param username - username of type String
+     * @return - looks through the db to see if the user exists.
+     */
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = userRepository
@@ -31,6 +38,15 @@ public class UserService implements UserDetailsService {
 
         return new UserObject(user);
     }
+
+    /**
+     *
+     * @param username - username of type string
+     * @param password - we recieve the password and we encode it.
+     * @return - returns the whole user object.
+     * @throws UserAlreadyExistsException
+     */
+
     public User registerUser(String username, String password)
             throws UserAlreadyExistsException
     {

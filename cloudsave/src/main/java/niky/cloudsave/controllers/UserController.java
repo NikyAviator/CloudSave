@@ -18,6 +18,15 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
+    /**
+     *
+     * @param registerUser - The class that merges username and password. Into a user.
+     * @return - returns the name of the user with a message.
+     * @throws UserAlreadyExistsException - Checks if there already exists a user. Throws UserAlreadyExistsException if there already
+     *  exists a user with same name.
+     */
+
     @PostMapping("/register")
     public ResponseEntity<String> register(
             @RequestBody RegisterUser registerUser
@@ -25,6 +34,10 @@ public class UserController {
         var user = userService.registerUser(registerUser.getUsername(), registerUser.getPassword());
         return ResponseEntity.ok(user.getName() + ", user created successfully!");
     }
+
+    /**
+     *  We use this class in /register to save both username and password.
+     */
     @Getter
     @Setter
     public static class RegisterUser {

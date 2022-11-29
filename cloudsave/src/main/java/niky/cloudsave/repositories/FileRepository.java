@@ -8,11 +8,13 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A custom query to find all files by a user.
+ */
+
 @Repository
 @Transactional
 public interface FileRepository extends JpaRepository<FileDB, String> {
-
-    Optional<FileDB> findFileByUser(User user);
 
     List<FileDB> findAllByUser(User user);
 }
