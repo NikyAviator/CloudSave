@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This filter will run once per request.
+ * It looks in the header if there is a bearer token, if there is one, it combines the user and the token.
+ */
+
 public class JWTVerifyFilter extends OncePerRequestFilter {
 
     private final UserService userService;
@@ -20,7 +25,7 @@ public class JWTVerifyFilter extends OncePerRequestFilter {
     public JWTVerifyFilter(UserService userService) {
         this.userService = userService;
     }
-
+    // Starts the filter-chain with these parameters.
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,

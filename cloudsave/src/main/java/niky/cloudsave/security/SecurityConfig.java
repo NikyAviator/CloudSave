@@ -10,6 +10,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    /**
+     * Register and login is permitted for all!
+     * Rest of the endpoints will require authentication (token for stateless app)
+     */
+
 
     @Bean
     public SecurityFilterChain filterChain(

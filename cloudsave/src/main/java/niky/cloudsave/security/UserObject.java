@@ -1,16 +1,16 @@
 package niky.cloudsave.security;
 
 import lombok.Getter;
-
 import niky.cloudsave.data.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
+/**
+ *  userobject impelents UserDetails.
+ *  We override the UserDetails methods to set them as we see fit.
+ */
 @Getter
 public class UserObject implements UserDetails {
     private final User user;
