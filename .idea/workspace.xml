@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9c181ab3-03cd-487b-be0b-837f525b22fa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/CloudsaveApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/CloudsaveApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/controllers/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/controllers/FileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/controllers/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/security/JWTLoginFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/security/JWTLoginFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/security/JWTVerifyFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/security/JWTVerifyFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/security/PasswordConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/security/PasswordConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/security/UserObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloudsave/src/main/java/niky/cloudsave/security/UserObject.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +48,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/niky/vscodePC/JavaSpring/CloudSave/cloudsave/src/main/java/niky/cloudsave&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;
   }
 }</component>
   <component name="RecentsManager">

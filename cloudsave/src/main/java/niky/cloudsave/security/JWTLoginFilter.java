@@ -18,6 +18,7 @@ import java.io.IOException;
 
 /**
  * This class creates the JWT
+ * Authentication object is returned from the user's username and password.
  *
  */
 
